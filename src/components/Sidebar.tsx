@@ -1,4 +1,4 @@
-import React from "react"
+import React  from "react"
 import {noteType} from "../App"
 
 type sideBarType = {
@@ -6,6 +6,7 @@ type sideBarType = {
   currentNote: noteType
   setCurrentNoteId: any
   newNote: () => void
+  deleteNote: (event: React.MouseEvent<HTMLButtonElement>, noteId: string) => void
 }
 
 export default function Sidebar(props: sideBarType) {
@@ -18,7 +19,12 @@ export default function Sidebar(props: sideBarType) {
         }`}
         onClick={() => props.setCurrentNoteId(note.id)}
       >
-        <h4 className="text-snippet">{note.body.split("\n")[0 ]}</h4>
+        <h4 className="text-snippet">{note.body.split("\n")[0]}</h4>
+        <button
+          className={"delete-btn"}
+          onClick={(event) => props.deleteNote(event, note.id)}>
+          <i className={"gg-trash trash-icon"}></i>
+        </button>
       </div>
     </div>
   ))

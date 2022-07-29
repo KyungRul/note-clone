@@ -1,4 +1,4 @@
-import React from "react"
+import React, {MouseEventHandler} from "react"
 import Sidebar from "./components/Sidebar"
 import Editor from "./components/Editor"
 import {data} from "./data"
@@ -37,16 +37,21 @@ export default function App() {
   function updateNote(text: string) {
     setNotes(oldNotes => {
       const newArray = []
-      for(let i = 0; i < oldNotes.length; i++) {
+      for (let i = 0; i < oldNotes.length; i++) {
         const oldNote = oldNotes[i]
-        if(oldNote.id === currentNoteId) {
-          newArray.unshift({ ...oldNote, body: text })
+        if (oldNote.id === currentNoteId) {
+          newArray.unshift({...oldNote, body: text})
         } else {
           newArray.push(oldNote)
         }
       }
       return newArray
     })
+  }
+
+  function deleteNote(event:React.MouseEvent<HTMLButtonElement>, noteId: string) {
+    event.stopPropagation()
+    setNotes(oldNotes => oldNotes.filter((note) => note.id !== noteId))
   }
 
   function findCurrentNote() {
@@ -70,6 +75,7 @@ export default function App() {
               currentNote={findCurrentNote()}
               setCurrentNoteId={setCurrentNoteId}
               newNote={createNewNote}
+              deleteNote={deleteNote}
             />
             {
               currentNoteId &&
