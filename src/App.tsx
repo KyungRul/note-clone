@@ -14,7 +14,8 @@ export type noteType = {
 export default function App() {
 
 
-  const [notes, setNotes] = React.useState<noteType[]>([])
+  const [notes, setNotes] = React.useState<noteType[]>(
+    () => JSON.parse(localStorage.getItem("notes") ?? "null") || [])
   const [currentNoteId, setCurrentNoteId] = React.useState(
     (notes[0] && notes[0].id) || ""
   )
