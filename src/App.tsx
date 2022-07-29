@@ -19,8 +19,13 @@ export default function App() {
     (notes[0] && notes[0].id) || ""
   )
 
+
+  React.useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes))
+  }, [notes])
+
   function createNewNote() {
-    const newNote:noteType = {
+    const newNote: noteType = {
       id: nanoid(),
       body: "# Type your markdown note's title here"
     }
